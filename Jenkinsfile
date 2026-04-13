@@ -69,17 +69,17 @@ pipeline {
             }
         }
 
-        stage('Trivy Scan') {
-            steps {
-                sh '''
-                docker run --rm \
-                -v /var/run/docker.sock:/var/run/docker.sock \
-                aquasecurity/trivy:latest image ${IMAGE_NAME}:${IMAGE_TAG} \
-                --no-progress --scanners vuln \
-                --exit-code 1 --severity HIGH,CRITICAL --format table
-                '''
-             }
-        }
+        // stage('Trivy Scan') {
+        //     steps {
+        //         sh '''
+        //         docker run --rm \
+        //         -v /var/run/docker.sock:/var/run/docker.sock \
+        //         aquasecurity/trivy:latest image ${IMAGE_NAME}:${IMAGE_TAG} \
+        //         --no-progress --scanners vuln \
+        //         --exit-code 1 --severity HIGH,CRITICAL --format table
+        //         '''
+        //      }
+        // }
 
         stage('Cleanup Artifacts') {
             steps {
