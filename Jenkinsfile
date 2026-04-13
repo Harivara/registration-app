@@ -10,7 +10,7 @@ pipeline {
         APP_NAME = 'registration-app-pipeline'
         RELEASE_VERSION = '1.0.0'
         DOCKER_USER= "harivara"
-        DOCKER_PASSWORD = credentials('docker-hub-login')
+        DOCKER_PASSWORD = credentials('dokker-hub-login')
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
