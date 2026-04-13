@@ -69,5 +69,13 @@ pipeline {
             }
         }
 
+        stage("Trivy Scan"){
+            steps{
+                script{
+                    sh('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image harivara/register-app-pipeline:latest --no-progress --scanners vuln --exit-code 1 --severity HIGH,CRITICAL --format table')
+                }
+            }
+        }
+
     }
 }
