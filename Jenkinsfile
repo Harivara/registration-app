@@ -6,6 +6,14 @@ pipeline {
         maven 'Maven3'
     }
 
+    environment {
+        APP_NAME = 'registration-app-pipeline'
+        RELEASE_VERSION = '1.0.0'
+        DOCKER_USER= "harivara"
+        DOCKER_PASSWORD = credentials('docker-hub-login')
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    }
     stages {
 
         stage('Cleanup Workspace') {
@@ -47,7 +55,19 @@ pipeline {
                 }
             }
         }
-
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('',DOCKER_PASSWORD){
+                        docker_image =docker.build "${IMAGE_NAME}"
+                    }
+                    docker.withRegistry('',DOCKER_PASSWORD){
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push("latest")
+                    }
+                }
+            }
+        }
 
     }
 }
