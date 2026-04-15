@@ -74,9 +74,13 @@ pipeline {
                 sh '''
                 docker run --rm \
                 -v /var/run/docker.sock:/var/run/docker.sock \
-                aquasec/trivy image ashfaque9x/register-app-pipeline:latest \
-                --no-progress --scanners vuln \
-                --exit-code 1 --severity HIGH,CRITICAL --format table
+                aquasec/trivy:0.50.2 \
+                image ashfaque9x/register-app-pipeline:latest \
+                --no-progress \
+                --scanners vuln \
+                --exit-code 1 \
+                --severity HIGH,CRITICAL \
+                --format table
                 '''
              }
         }
