@@ -94,8 +94,7 @@ pipeline {
 
                 withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
                     sh """
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Harivara/registration-app.git main
-                    """
+                        git push https://Harivara:github-token@github.com/Harivara/registration-app.git                    """
                 }
             }
         }
