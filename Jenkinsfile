@@ -124,10 +124,13 @@ pipeline {
                     git add regapp-deploy.yml
                     git commit -m "Update deployment manifest with new image tag: ${IMAGE_TAG}"
                 """
-                withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
-                    sh 'git push https://github.com/Harivara/registration-app main'
                 }
+                withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                sh """
+                    git push https://Harivara:githuh-token@github.com/Harivara/registration-app.git main
+                """
             }
+            
     }
 }
 }
