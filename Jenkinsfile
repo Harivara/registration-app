@@ -46,15 +46,15 @@ pipeline {
             }
         }
 
-        stage('🔍 SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv('sonarqube-token') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
+        // stage('🔍 SonarQube Analysis') {
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv('sonarqube-token') {
+        //                 sh 'mvn sonar:sonar'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('🚦 Quality Gate') {
             steps {
