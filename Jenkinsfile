@@ -102,11 +102,15 @@ pipeline {
             }
         }
 
-        stage("Update the Deployment Tags"){
-            steps{
+        stage("Update the Deployment Tags") {
+            steps {
                 sh """
+                    echo "Before change:"
                     cat regapp-deploy.yml
-                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' regapp-deploy.yml
+
+                    sed -i "s|image: .*|image: ${IMAGE_NAME}:${IMAGE_TAG}|g" regapp-deploy.yml
+
+                    echo "After change:"
                     cat regapp-deploy.yml
                 """
             }
