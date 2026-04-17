@@ -101,5 +101,29 @@ pipeline {
                 }
             }
         }
+
+        stage("Update the Deployment Tags"){
+            steps{
+                sh """
+                    cat regapp-deploy.yml
+                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' regapp-deploy.yml
+                    cat regapp-deploy.yml
+                """
+            }
+        }
+
+        stage(" Push Deployment Manifest to GitHub Repo"){
+            steps{
+                sh """
+                    git config --global user.email "lci2020051@iiitl.ac.in"
+                    git config --global user.name "Harivara"
+                    git add regapp-deploy.yml
+                    git commit -m "Update deployment manifest with new image tag: ${IMAGE_TAG}"
+                """
+                withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                    sh 'git push https://github.com/Harivara/registration-app main'
+                }
+            }
     }
+}
 }
